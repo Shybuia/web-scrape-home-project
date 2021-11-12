@@ -45,4 +45,5 @@ def get_all_sublinks(url):
         completeURL = url.rstrip('/') + '?modul=bazar&od=' + str(i)                
         find_sublinks(completeURL)
 
-get_all_sublinks('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
+# get_all_sublinks('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
+# get_all_sublinks('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
