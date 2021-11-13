@@ -1,10 +1,10 @@
 import requests
 import re
-import csv
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import scraping
 import time
+import pandas as pd
 
 script_start_time = time.strftime("%d_%m_%Y-%H%M%S")
 
@@ -43,5 +43,11 @@ def main(url):
         completeURL = url.rstrip('/') + '?modul=bazar&od=' + str(i)                
         find_and_scrape_sublinks(completeURL)
 
-main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
-# main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
+# main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
+main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
+
+file_name = script_start_time + "_export.csv"
+file_name_output = script_start_time + "_export_without_dupes.csv"
+df = pd.read_csv(file_name, sep=",", engine='python')
+df.drop_duplicates(subset=None, inplace=True)
+df.to_csv(file_name_output, index=False)
