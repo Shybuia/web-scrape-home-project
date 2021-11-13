@@ -30,7 +30,7 @@ def scrape_page(URL, start_time):
         sub_category = 'none'
     timestr = time.strftime("%d_%m_%Y-%H%M%S")
     filename = start_time + '_export.csv'
-    file = open(filename, 'a', newline = '', encoding = 'ansi')
+    file = open(filename, 'a', newline = '', encoding = 'UTF-8')
     with file:
         write = csv.writer(file)
         write.writerow([found_id, title, cost, model_year, URL, category, sub_category])
