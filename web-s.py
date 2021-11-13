@@ -3,6 +3,10 @@ import re
 import csv
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+import scraping
+import time
+
+script_start_time = time.strftime("%d_%m_%Y-%H%M%S")
 
 def find_sublinks(url):
     reqs = requests.get(url)
@@ -15,14 +19,20 @@ def find_sublinks(url):
         text = link.get('href')                     
         found_link = re.search(search_text, str(text))
         if found_link:        
-            urls.append(text)    
+            urls.append(text)     
+
+    for line in dict.fromkeys(urls):
+        print(line + 'ENDOFLINE')    
+        scraping.scrape_page(line, script_start_time)                    
+
     # print("\n".join(list(dict.fromkeys(urls))))
-    file = open('mtbiker_urls.csv', 'a', newline ='') 
-    with file:       
-        write = csv.writer(file) 
-        for i in list(dict.fromkeys(urls)):    
-            write.writerow([i])
-            print(i)
+    # file = open('mtbiker_urls.csv', 'a', newline ='') 
+    # with file:       
+    #     write = csv.writer(file) 
+    #     for i in list(dict.fromkeys(urls)):    
+    #         write.writerow([i])
+    #         print(i)
+
 
 def get_page_range(url):
     reqs = requests.get(url)
@@ -45,5 +55,5 @@ def get_all_sublinks(url):
         completeURL = url.rstrip('/') + '?modul=bazar&od=' + str(i)                
         find_sublinks(completeURL)
 
-# get_all_sublinks('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
+get_all_sublinks('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
 # get_all_sublinks('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
