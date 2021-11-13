@@ -20,11 +20,7 @@ def scrape_page(URL, start_time):
         if find_model_year:        
             model_year = find_model_year.group(1)    
         else:
-            model_year='not defined'
-    print(found_id)
-    print(title)
-    print(cost)
-    print(model_year)
+            model_year='not defined'        
     find_categories = re.search('\/bicykle\/(?<=\/)(.*?)\/(.*?)(?=\/)', str(URL))
     if find_categories:
         category = find_categories.group(1)
@@ -34,10 +30,7 @@ def scrape_page(URL, start_time):
         sub_category = 'none'
     timestr = time.strftime("%d_%m_%Y-%H%M%S")
     filename = start_time + '_export.csv'
-    file = open(filename, 'a', newline = '', encoding = 'utf-8')
+    file = open(filename, 'a', newline = '', encoding = 'ansi')
     with file:
         write = csv.writer(file)
         write.writerow([found_id, title, cost, model_year, URL, category, sub_category])
-
-# scrape_page('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/474586/yeti-sb130.html')
-# scrape_page('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/4460702/ctm-zephyr-v-zaruke-.html')
