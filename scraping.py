@@ -1,16 +1,18 @@
 import requests
 import re
 from bs4 import BeautifulSoup
+import datetime
 
-def scrape_page(URL):
+def scrape_page(URL, session):
+    begin_time = datetime.datetime.now()
     find_id = re.search('\/(\d{1,9})\/', URL)
     if find_id:
         found_id = find_id.group(1)
-    page = requests.get(URL)
-    soup = BeautifulSoup(page.content, "html.parser")
+    page = session.get(URL)    
+    soup = BeautifulSoup(page.content, "html.parser")    
     results = soup.find(id="bazaar-item-" + found_id)
     title = results.find("h1", class_="mb-0").text.strip()
-    cost = results.find("span", class_="badge badge-pill badge-dark align-text-bottom").text.strip().replace('.','')    
+    cost = results.find("span", class_="badge badge-pill badge-dark align-text-bottom").text.strip().replace('.','')        
     sub_results = soup.find(id="bazaar-detail-tabs")
     details = sub_results.find_all("p", class_="text-line-height-lg")
     for detail in details:    
@@ -25,5 +27,9 @@ def scrape_page(URL):
         sub_category = find_categories.group(2)
     else:
         category = 'none'
-        sub_category = 'none'     
+        sub_category = 'none'             
+    print(datetime.datetime.now() - begin_time)
     return found_id, title, cost, model_year, URL, category, sub_category
+
+# scrape_page('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/479013/force-tron-l-.html')
+

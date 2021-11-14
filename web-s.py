@@ -7,7 +7,8 @@ import time
 import pandas as pd
 
 def find_and_scrape_sublinks(url):
-    reqs = requests.get(url)
+    session = requests.Session()
+    reqs = session.get(url)
     soup = BeautifulSoup(reqs.text, 'html.parser')
     urls = []
     scraped_pages = []        
@@ -20,7 +21,7 @@ def find_and_scrape_sublinks(url):
             urls.append(text)     
     for sub_link in dict.fromkeys(urls):
         print(sub_link)    
-        scraped_pages.append(scraping.scrape_page(sub_link))
+        scraped_pages.append(scraping.scrape_page(sub_link, session))
     return scraped_pages
 
 def get_page_range(url):
@@ -37,7 +38,7 @@ def get_page_range(url):
             page_indexes.append(processed_text)                
     return list(dict.fromkeys(page_indexes))
 
-def main(url):
+def main(url):    
     scraped_pages = []
     script_start_time = time.strftime("%d_%m_%Y-%H%M%S")
     file_name = script_start_time + "_export.csv"
@@ -50,5 +51,5 @@ def main(url):
     dataframe.to_csv(file_name, index=False)
 
 main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
-main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
-main('https://www.mtbiker.sk/bazar/bicykle/cestne-bicykle')
+# main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
+# main('https://www.mtbiker.sk/bazar/bicykle/cestne-bicykle')
