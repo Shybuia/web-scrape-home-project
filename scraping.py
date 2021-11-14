@@ -1,10 +1,8 @@
 import requests
 import re
-import csv
-import time
 from bs4 import BeautifulSoup
 
-def scrape_page(URL, start_time):
+def scrape_page(URL):
     find_id = re.search('\/(\d{1,9})\/', URL)
     if find_id:
         found_id = find_id.group(1)
@@ -12,7 +10,7 @@ def scrape_page(URL, start_time):
     soup = BeautifulSoup(page.content, "html.parser")
     results = soup.find(id="bazaar-item-" + found_id)
     title = results.find("h1", class_="mb-0").text.strip()
-    cost = results.find("span", class_="badge badge-pill badge-dark align-text-bottom").text.strip()    
+    cost = results.find("span", class_="badge badge-pill badge-dark align-text-bottom").text.strip().replace('.','')    
     sub_results = soup.find(id="bazaar-detail-tabs")
     details = sub_results.find_all("p", class_="text-line-height-lg")
     for detail in details:    
@@ -27,9 +25,5 @@ def scrape_page(URL, start_time):
         sub_category = find_categories.group(2)
     else:
         category = 'none'
-        sub_category = 'none'    
-    filename = start_time + '_export.csv'
-    file = open(filename, 'a', newline = '', encoding = 'UTF-8')
-    with file:
-        write = csv.writer(file)
-        write.writerow([found_id, title, cost, model_year, URL, category, sub_category])
+        sub_category = 'none'     
+    return found_id, title, cost, model_year, URL, category, sub_category
