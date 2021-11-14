@@ -43,8 +43,9 @@ def main(url):
         completeURL = url.rstrip('/') + '?modul=bazar&od=' + str(i)                
         find_and_scrape_sublinks(completeURL)
 
-# main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
+main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
 main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
+main('https://www.mtbiker.sk/bazar/bicykle/cestne-bicykle')
 
 file_name = script_start_time + "_export.csv"
 file_name_output = script_start_time + "_export_without_dupes.csv"

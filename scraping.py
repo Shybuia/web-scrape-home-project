@@ -27,8 +27,7 @@ def scrape_page(URL, start_time):
         sub_category = find_categories.group(2)
     else:
         category = 'none'
-        sub_category = 'none'
-    timestr = time.strftime("%d_%m_%Y-%H%M%S")
+        sub_category = 'none'    
     filename = start_time + '_export.csv'
     file = open(filename, 'a', newline = '', encoding = 'UTF-8')
     with file:
