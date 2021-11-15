@@ -1,10 +1,7 @@
-import requests
 import re
 from bs4 import BeautifulSoup
-import datetime
 
-def scrape_page(URL, session):
-    begin_time = datetime.datetime.now()
+def scrape_page(URL, session):    
     find_id = re.search('\/(\d{1,9})\/', URL)
     if find_id:
         found_id = find_id.group(1)
@@ -27,8 +24,7 @@ def scrape_page(URL, session):
         sub_category = find_categories.group(2)
     else:
         category = 'none'
-        sub_category = 'none'             
-    print(datetime.datetime.now() - begin_time)
+        sub_category = 'none'                 
     return found_id, title, cost, model_year, URL, category, sub_category
 
 # scrape_page('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/479013/force-tron-l-.html')
