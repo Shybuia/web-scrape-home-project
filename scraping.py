@@ -24,7 +24,8 @@ def scrape_page(URL, session):
         sub_category = find_categories.group(2)
     else:
         category = 'none'
-        sub_category = 'none'                 
+        sub_category = 'none'      
+        
     return found_id, title, cost, model_year, URL, category, sub_category
 
 # scrape_page('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/479013/force-tron-l-.html')
