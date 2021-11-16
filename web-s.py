@@ -1,7 +1,6 @@
 import requests
 import re
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
 import scraping
 import time
 import pandas as pd
@@ -39,8 +38,7 @@ def get_page_range(url):
 
 def main(url): 
     scraped_pages = []
-    parsed_pages_urls = []
-    
+    parsed_pages_urls = []    
     page_range = get_page_range(url)    
     for i in range (0, int(max(page_range)) +1 ):                
         completeURL = url.rstrip('/') + '?modul=bazar&od=' + str(i)                     
@@ -51,8 +49,7 @@ def main(url):
     for url in parsed_pages_urls:
         counter += 1
         print(counter)
-        scraped_pages.append(scraping.scrape_page(url))    
-    
+        scraped_pages.append(scraping.scrape_page(url))        
     print(max(page_range))     
     return scraped_pages       
 
