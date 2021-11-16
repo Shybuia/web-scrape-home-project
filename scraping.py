@@ -2,13 +2,12 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-def scrape_page(URL):    
-    session = requests.Session()               
+def scrape_page(URL):        
     find_id = re.search('\/(\d{1,9})\/', URL)
     print(URL)
     if find_id:
         found_id = find_id.group(1)
-    page = session.get(URL)    
+    page = requests.get(URL)    
     soup = BeautifulSoup(page.content, "html.parser")    
     results = soup.find(id="bazaar-item-" + found_id)
     title = results.find("h1", class_="mb-0").text.strip()
