@@ -1,8 +1,11 @@
 import re
+import requests
 from bs4 import BeautifulSoup
 
-def scrape_page(URL, session):    
+def scrape_page(URL):    
+    session = requests.Session()               
     find_id = re.search('\/(\d{1,9})\/', URL)
+    print(URL)
     if find_id:
         found_id = find_id.group(1)
     page = session.get(URL)    
