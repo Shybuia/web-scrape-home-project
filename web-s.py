@@ -56,7 +56,7 @@ def main(url):
 scraped_pages = []
 scraped_pages = main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/pevne-a-hardtail/')
 scraped_pages += main('https://www.mtbiker.sk/bazar/bicykle/horske-bicykle/celoodpruzene/')
-scraped_pages += main('https://www.mtbiker.sk/bazar/bicykle/cestne-bicykle')
+scraped_pages += main('https://www.mtbiker.sk/bazar/bicykle/cestne-bicykle/')
 script_start_time = time.strftime("%d_%m_%Y-%H%M%S")
 file_name = script_start_time + "_export.csv"
 dataframe = pd.DataFrame(scraped_pages, columns=['id','title','model_year','cost','url','category','sub_category'])
